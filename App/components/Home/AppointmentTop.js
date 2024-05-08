@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import GlobalApi from "../../services/GlobalApi";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import MyFunctions from "../../services/MyFunctions";
+import moment from "moment";
 
 export default function AppointmentTop() {
   const [hasAppointment,setHasAppointment] = useState(false)
@@ -22,11 +22,11 @@ export default function AppointmentTop() {
   if(user!=null){
     GlobalApi.getUserAppointments(user.Correo).then((res)=>{
       const info=res.data.data[0].attributes
-      const hora= MyFunctions.getStrapiTime(info)
-      const date= MyFunctions.getStrapiDateObject(info)
-      const currentDate= MyFunctions.getCurrentDate()
-      if(date>currentDate){
-        setDia(date.toLocaleDateString())
+      const hora= moment(info.Fechor).locale("es").format("HH:mm")
+      const date= moment(info.Fechor).format("YYYY-MM-DD")
+      const currentDate= moment().format("YYYY-MM-DD")
+      if(new Date(date)>new Date(currentDate)){
+        setDia(moment(date).format("DD/MM/YYYY"))
         setHora(hora)
         setHasAppointment(true)
       }
