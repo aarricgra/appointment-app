@@ -8,10 +8,12 @@ import LoginHub from "../screens/Auth/LoginHub";
 import EmailLogin from "../screens/Auth/EmailLogin";
 import EmailRegister from "../screens/Auth/EmailRegister";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Appointemnt from "../screens/Appointemnt";
+import Appointments from "../screens/Appointments";
 import Profile from "../screens/Profile";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import MakeAppointment from "../screens/MakeAppointment"
+import ButtonNavigator from "../components/Home/ButtonNavigator";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -40,8 +42,8 @@ function MainStack() {
         }}
       />
       <Tab.Screen
-        name="Appointment"
-        component={Appointemnt}
+        name="Appointments"
+        component={Appointments}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="calendar" size={size} color={color} />
@@ -121,6 +123,22 @@ export default function Screens() {
           },
           headerTintColor: "#fff",
         }}
+      />
+      <Stack.Screen
+        name="MakeAppointment"
+        component={MakeAppointment}
+        options={{
+            title: "",
+            headerStyle: {
+              backgroundColor: "#171717",
+            },
+            headerTintColor: "#fff",
+          }}
+      />
+      <Stack.Screen
+        name="ButtonNavigator"
+        component={ButtonNavigator}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );
