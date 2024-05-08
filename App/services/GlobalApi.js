@@ -1,7 +1,7 @@
 import axios from "axios";
 
 //const BASE_URL = EXPO_PUBLIC_API_URL;
-const BASE_URL ="http://192.168.1.139:1337";
+const BASE_URL ="http://192.168.1.20:1337";
 
 
 const API_KEY =

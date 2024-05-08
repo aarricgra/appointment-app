@@ -1,9 +1,10 @@
 import { View, Text, Dimensions } from "react-native";
 import React, {  useState } from "react";
 import CustomCalendar from "../components/MakeApointment/CustomCalendar";
+import MyFunctions from "../services/MyFunctions"
 
 export default function MakeAppointment() {
-  const [selectedDay, setSelectedDay] = useState("");
+  const [selectedDay, setSelectedDay] = useState(MyFunctions.getCurrentDate());
   return (
     <View
       style={{
@@ -12,8 +13,8 @@ export default function MakeAppointment() {
       }}
     >
       <CustomCalendar onDay={(day)=>{setSelectedDay(day)}}/>
-      <Text style={{color:"white"}}>{selectedDay}</Text>
-      <Text style={{color:"white"}}>{new Date().getFullYear()+"-"+(new Date().getMonth()+1<10?"0"+(new Date().getMonth()+1):new Date().getMonth()+1)+"-"+(new Date().getDate()<10?"0"+(new Date().getDate()):new Date().getDate())}</Text>
+      <Text style={{color:"white"}}>{selectedDay!=null&&new Date(selectedDay).toLocaleDateString()}</Text>
+      <Text style={{color:"white"}}>{MyFunctions.getCurrentDate().toLocaleDateString()}</Text>
     </View>
   );
 }
