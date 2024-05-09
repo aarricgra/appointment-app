@@ -20,7 +20,7 @@ export default function TimePicker({day,hour,onchange}) {
     });
 
     return (
-    <View style={{padding:separator}}>
+    <View style={{paddingHorizontal:separator,marginBottom:15}}>
         <Text style={styles.title}>Horas disponibles</Text>
         <View style={styles.row}>
             {hours.map((item, index) => {

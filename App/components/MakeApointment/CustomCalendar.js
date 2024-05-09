@@ -49,7 +49,7 @@ export default function CustomCalendar({onDay}) {
     [selected]
   );
   return (
-    <View style={{padding:separator}}>
+    <View style={{paddingHorizontal:separator,marginVertical:10}}>
       <Text style={styles.title}>Elige fecha</Text>
       <Calendar
       style={{
@@ -67,12 +67,12 @@ export default function CustomCalendar({onDay}) {
           monthTextColor: "#888",
         }}
         firstDay={1}
-        enableSwipeMonths
     />
     </View>
   );
 }
 const screenWidth=Dimensions.get("screen").width
+const screenHeight=Dimensions.get("screen").height
 const separator=parseInt(screenWidth*0.04)
 const styles = StyleSheet.create({
     title:{color:"white",marginBottom:10,fontWeight:"bold",fontSize:18}
