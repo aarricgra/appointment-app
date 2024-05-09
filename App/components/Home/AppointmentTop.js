@@ -22,8 +22,9 @@ export default function AppointmentTop() {
   if(user!=null){
     GlobalApi.getUserAppointments(user.Correo).then((res)=>{
       const info=res.data.data[0].attributes
-      const hora= moment(info.Fechor).locale("es").format("HH:mm")
-      const date= moment(info.Fechor).format("YYYY-MM-DD")
+      const h = info.Hora.split(':')
+      const hora= moment().startOf("day").add(h[0],"hours").add(h[1],"minutes").format("HH:mm")
+      const date= moment(info.Fecha).format("YYYY-MM-DD")
       const currentDate= moment().format("YYYY-MM-DD")
       if(new Date(date)>new Date(currentDate)){
         setDia(moment(date).format("DD/MM/YYYY"))

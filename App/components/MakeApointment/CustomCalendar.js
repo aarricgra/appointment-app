@@ -1,5 +1,6 @@
 import moment from "moment";
 import React, { useMemo, useState } from "react";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 import { Calendar, LocaleConfig } from "react-native-calendars";
 
 export default function CustomCalendar({onDay}) {
@@ -48,19 +49,31 @@ export default function CustomCalendar({onDay}) {
     [selected]
   );
   return (
+    <View style={{padding:separator}}>
+      <Text style={styles.title}>Elige fecha</Text>
       <Calendar
+      style={{
+        backgroundColor:"transparent",borderWidth:3,borderColor:"white",borderRadius:15
+      }}
         onDayPress={(day) => {
           setSelected(moment(day.dateString).format("YYYY-MM-DD"));
           onDay(day.dateString)
         }}
         markedDates={marked}
         theme={{
-          calendarBackground: "#222",
+          calendarBackground: 'transparent',
           dayTextColor: "#fff",
           textDisabledColor: "#444",
           monthTextColor: "#888",
         }}
         firstDay={1}
-      />
+        enableSwipeMonths
+    />
+    </View>
   );
 }
+const screenWidth=Dimensions.get("screen").width
+const separator=parseInt(screenWidth*0.04)
+const styles = StyleSheet.create({
+    title:{color:"white",marginBottom:10,fontWeight:"bold",fontSize:18}
+  });

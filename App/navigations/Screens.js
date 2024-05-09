@@ -128,7 +128,7 @@ export default function Screens() {
         name="MakeAppointment"
         component={MakeAppointment}
         options={{
-            title: "",
+            title: "Reservar cita",
             headerStyle: {
               backgroundColor: "#171717",
             },

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 //const BASE_URL = EXPO_PUBLIC_API_URL;
-const BASE_URL ="http://192.168.1.20:1337";
+const BASE_URL ="http://192.168.1.139:1337";
 
 
 const API_KEY =
@@ -24,9 +24,11 @@ const getMatchingUser =(email)=> AXIOS_INSTANCE.get("/api/clientes?filters[Corre
 
 const checkLoginCredentials =(email,password)=> AXIOS_INSTANCE.get("/api/clientes?populate=*&filters[Correo][$eq]="+email+"&filters[Password][$eq]="+password);
 
-const getUserAppointments =(email)=>AXIOS_INSTANCE.get("/api/reservas?populate=*&filters[idCliente][Correo]$eq]="+email);
+const getUserAppointments =(email)=>AXIOS_INSTANCE.get("/api/reservas?populate=*&filters[idCliente][Correo][$eq]="+email);
 
 const postNewUser = (data)=> AXIOS_INSTANCE.post("/api/clientes",data)
+
+const getDayAppointmets = (day) => AXIOS_INSTANCE.get("/api/reservas?filters[Fecha][$eq]="+day)
 
 export default {
   getPromociones,
@@ -35,5 +37,6 @@ export default {
   getMatchingUser,
   getUserAppointments,
   postNewUser,
-  checkLoginCredentials
+  checkLoginCredentials,
+  getDayAppointmets
 };
