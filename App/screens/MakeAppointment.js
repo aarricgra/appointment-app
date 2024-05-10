@@ -14,13 +14,24 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import * as NavigationBar from "expo-navigation-bar";
 import { useFocusEffect } from "@react-navigation/native";
 import { setStatusBarHidden } from "expo-status-bar";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import GlobalApi from "../services/GlobalApi";
 
 
 
 export default function MakeAppointment() {
   const [selectedDay, setSelectedDay] = useState(moment().format("YYYY-MM-DD"));
   const [selectedHour, setSelectedHour] = useState("");
-  const [selectedService, setSelectedService] = useState(1);
+  const [selectedService, setSelectedService] = useState("");
+  const [user,setUser]=useState(null)
+
+  const getUser = async ()=>{
+    setUser(JSON.parse(await AsyncStorage.getItem("user")))
+  }
+
+  useEffect(()=>{
+    getUser()
+  },[])
 
   useFocusEffect(() => {
     NavigationBar.setPositionAsync("absolute");
@@ -29,6 +40,21 @@ export default function MakeAppointment() {
     NavigationBar.setBackgroundColorAsync("#00000080"); // `rgba(0,0,0,0.5)`
     setStatusBarHidden(true, "none");
   });
+
+  function handlePost(){
+    if(selectedHour.trim() != "" &&selectedDay.trim() != ""){
+      const data = {
+        data: {
+          Fecha: selectedDay,
+          Hora: selectedHour+":00.00",
+          idServicio: selectedService,
+          idCliente:user.id
+        },
+      };
+      console.log(data);
+      GlobalApi.postNewAppointment(data).then((res)=>console.log(res.data))
+    }
+  }
 
   return (
     <ScrollView
@@ -68,6 +94,7 @@ export default function MakeAppointment() {
             justifyContent:"center",
             gap:10
           }}
+          onPress={()=>handlePost()}
         >
           <Text style={{fontSize:18,fontWeight:"bold"}}>Reservar</Text><Ionicons name="calendar-outline" size={40} color={"#000000"}/>
         </TouchableOpacity>

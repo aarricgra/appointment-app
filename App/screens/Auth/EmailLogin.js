@@ -14,7 +14,7 @@ export default function LoginScreen({ navigation }) {
   
   function handleLogin() {
     GlobalApi.checkLoginCredentials(email, password).then(async (resp) => {
-      const user =(resp.data.data[0].attributes);
+      const user =(resp.data.data[0]);
       await AsyncStorage.setItem("user",JSON.stringify(user)).then(navigation.navigate("Pro"))
     });
   }

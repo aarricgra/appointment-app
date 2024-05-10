@@ -23,7 +23,7 @@ export default function Headers() {
           <Ionicons name="menu" size={40} color={"black"} />
         </TouchableOpacity>
         <Text style={{ color: "white" ,fontSize:30,fontWeight:"bold",marginLeft:10}}>Hola,</Text>
-        <Text style={{ color: "white" ,fontSize:30}}>{user.Nombre}</Text>
+        <Text style={{ color: "white" ,fontSize:30}}>{user.attributes.Nombre}</Text>
         <TouchableOpacity style={{padding:5,marginLeft:120}}>
           <Ionicons name="notifications" size={25} color={"white"} />
         </TouchableOpacity>
