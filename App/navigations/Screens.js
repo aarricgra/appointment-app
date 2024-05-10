@@ -8,7 +8,8 @@ import LoginHub from "../screens/Auth/LoginHub";
 import EmailLogin from "../screens/Auth/EmailLogin";
 import EmailRegister from "../screens/Auth/EmailRegister";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Appointments from "../screens/Appointments";
+import AllAppointments from "../screens/AllAppointments";
+import AppointmentInfo from "../screens/AppointmentInfo";
 import Profile from "../screens/Profile";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -42,8 +43,8 @@ function MainStack() {
         }}
       />
       <Tab.Screen
-        name="Appointments"
-        component={Appointments}
+        name="AllApointments"
+        component={AllAppointments}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="calendar" size={size} color={color} />
@@ -129,6 +130,17 @@ export default function Screens() {
         component={MakeAppointment}
         options={{
             title: "Reservar cita",
+            headerStyle: {
+              backgroundColor: "#171717",
+            },
+            headerTintColor: "#fff",
+          }}
+      />
+      <Stack.Screen
+        name="AppointmentInfo"
+        component={AppointmentInfo}
+        options={{
+            title: "Información cita",
             headerStyle: {
               backgroundColor: "#171717",
             },

@@ -29,6 +29,9 @@ const getUserAppointments =(email)=>AXIOS_INSTANCE.get("/api/reservas?populate=*
 const postNewUser = (data)=> AXIOS_INSTANCE.post("/api/clientes",data)
 
 const getDayAppointmets = (day) => AXIOS_INSTANCE.get("/api/reservas?filters[Fecha][$eq]="+day)
+const getAppoitmentById = (id) => AXIOS_INSTANCE.get("/api/reservas?populate=*&filters[id][$eq]="+id)
+const getServiceById = (id) => AXIOS_INSTANCE.get("/api/servicios?filters[id][$eq]="+id)
+
 
 const postNewAppointment = (data)=> AXIOS_INSTANCE.post("/api/reservas",data)
 
@@ -42,5 +45,7 @@ export default {
   postNewUser,
   checkLoginCredentials,
   getDayAppointmets,
-  postNewAppointment
+  postNewAppointment,
+  getAppoitmentById,
+  getServiceById
 };

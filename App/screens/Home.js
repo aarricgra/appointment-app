@@ -55,7 +55,7 @@ export default function Home({ navigation }) {
         <ButtonNavigator
           text={"Mis Reservas"}
           img={"/uploads/calendar_clock_outline_d32ed8449b.png"}
-          to={() => navigation.navigate("Appointments")}
+          to={() => navigation.navigate("AppointmentInfo", { id: '3' })}
         />
         <ButtonNavigator
           text={"Tarjeta Cliente"}

@@ -19,7 +19,7 @@ import GlobalApi from "../services/GlobalApi";
 
 
 
-export default function MakeAppointment() {
+export default function MakeAppointment({navigation}) {
   const [selectedDay, setSelectedDay] = useState(moment().format("YYYY-MM-DD"));
   const [selectedHour, setSelectedHour] = useState("");
   const [selectedService, setSelectedService] = useState("");
@@ -52,7 +52,7 @@ export default function MakeAppointment() {
         },
       };
       console.log(data);
-      GlobalApi.postNewAppointment(data).then((res)=>console.log(res.data))
+      GlobalApi.postNewAppointment(data).then((res)=>navigation.navigate("AppointmentInfo", { id: res.data.data.id }))
     }
   }
 
