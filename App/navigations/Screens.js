@@ -70,6 +70,11 @@ function MainStack() {
             <FontAwesome name="user-circle" size={size} color={color} />
           ),
           title: "Perfil",
+          headerShown:true,
+          headerStyle: {
+            backgroundColor: "#171717",
+          },
+          headerTintColor: "#fff",
         }}
       />
     </Tab.Navigator>
