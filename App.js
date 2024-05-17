@@ -3,7 +3,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import * as NavigationBar from "expo-navigation-bar";
 import Screens from "./App/navigations/Screens";
 import { setStatusBarHidden } from "expo-status-bar";
-import { LocaleConfig } from "react-native-calendars";
 
 export default function App() {
   NavigationBar.setPositionAsync("absolute");

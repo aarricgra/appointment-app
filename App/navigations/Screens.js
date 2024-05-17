@@ -10,11 +10,12 @@ import EmailRegister from "../screens/Auth/EmailRegister";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AllAppointments from "../screens/AllAppointments";
 import AppointmentInfo from "../screens/AppointmentInfo";
-import Profile from "../screens/Profile";
+import Profile from "../screens/Profile/Profile";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import MakeAppointment from "../screens/MakeAppointment"
 import ButtonNavigator from "../components/Home/ButtonNavigator";
+import AboutUs from "../screens/Profile/AboutUs";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -30,6 +31,7 @@ function MainStack() {
           height: 60,
           backgroundColor: "#363636",
         },
+        tabBarActiveTintColor: "#02e071",
       }}
     >
       <Tab.Screen
@@ -156,6 +158,17 @@ export default function Screens() {
         name="ButtonNavigator"
         component={ButtonNavigator}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="AboutUs"
+        component={AboutUs}
+        options={{
+          title: "Sobre CSBarber",
+          headerStyle: {
+            backgroundColor: "#171717",
+          },
+          headerTintColor: "#fff",
+        }}
       />
     </Stack.Navigator>
   );
