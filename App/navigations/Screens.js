@@ -16,6 +16,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import MakeAppointment from "../screens/MakeAppointment"
 import ButtonNavigator from "../components/Home/ButtonNavigator";
 import AboutUs from "../screens/Profile/AboutUs";
+import ContactUs from "../screens/Profile/ContactUs";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -164,6 +165,17 @@ export default function Screens() {
         component={AboutUs}
         options={{
           title: "Sobre CSBarber",
+          headerStyle: {
+            backgroundColor: "#171717",
+          },
+          headerTintColor: "#fff",
+        }}
+      />
+      <Stack.Screen
+        name="ContactUs"
+        component={ContactUs}
+        options={{
+          title: "Ponte en contacto",
           headerStyle: {
             backgroundColor: "#171717",
           },

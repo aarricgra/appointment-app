@@ -1,7 +1,4 @@
-import {
-  View,
-  Dimensions,
-} from "react-native";
+import { View, Dimensions } from "react-native";
 import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ProfileUserinfo from "../../components/Profile/ProfileUserinfo";
@@ -33,7 +30,13 @@ export default function Profile({ navigation }) {
       }}
     >
       <ProfileUserinfo user={user} />
-      <ProfileMenu notifications={notifications} onLogOut={()=>logOut} onNotificationPress={()=>setNotifications(!notifications)} toAbouUs={()=>navigation.navigate("AboutUs")}/>
+      <ProfileMenu
+        notifications={notifications}
+        onLogOut={() => logOut}
+        onNotificationPress={() => setNotifications(!notifications)}
+        toAbouUs={() => navigation.navigate("AboutUs")}
+        toContactUs={()=>navigation.navigate("ContactUs")}
+      />
     </View>
   );
 }
