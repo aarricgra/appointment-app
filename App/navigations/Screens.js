@@ -17,6 +17,7 @@ import MakeAppointment from "../screens/MakeAppointment"
 import ButtonNavigator from "../components/Home/ButtonNavigator";
 import AboutUs from "../screens/Profile/AboutUs";
 import ContactUs from "../screens/Profile/ContactUs";
+import MyAccount from "../screens/Profile/MyAccount";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -176,6 +177,18 @@ export default function Screens() {
         component={ContactUs}
         options={{
           title: "Ponte en contacto",
+          headerStyle: {
+            backgroundColor: "#171717",
+          },
+          headerTintColor: "#fff",
+        }}
+      />
+
+<Stack.Screen
+        name="MyAccount"
+        component={MyAccount}
+        options={{
+          title: "Mi cuenta",
           headerStyle: {
             backgroundColor: "#171717",
           },

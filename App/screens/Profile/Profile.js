@@ -32,10 +32,11 @@ export default function Profile({ navigation }) {
       <ProfileUserinfo user={user} />
       <ProfileMenu
         notifications={notifications}
-        onLogOut={() => logOut}
+        onLogOut={() => logOut()}
         onNotificationPress={() => setNotifications(!notifications)}
         toAbouUs={() => navigation.navigate("AboutUs")}
         toContactUs={()=>navigation.navigate("ContactUs")}
+        toMyAccount={()=>navigation.navigate("MyAccount")}
       />
     </View>
   );

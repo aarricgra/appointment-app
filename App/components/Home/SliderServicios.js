@@ -29,7 +29,7 @@ export default function Slider() {
           <View>
             <Image
               source={{
-                uri: process.env.EXPO_PUBLIC_API_URL + item.attributes.img.data.attributes.url,
+                uri: GlobalApi.getBaseUrl() + item.attributes.img.data.attributes.url,
               }}
               style={styles.imgStyle}
               alt="Imagen promocional"

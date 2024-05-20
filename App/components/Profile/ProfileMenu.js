@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-export default function ProfileMenu({ notifications, onLogOut, onNotificationPress,toAbouUs, toContactUs }) {
+export default function ProfileMenu({ notifications, onLogOut, onNotificationPress,toAbouUs, toContactUs, toMyAccount }) {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -23,7 +23,7 @@ export default function ProfileMenu({ notifications, onLogOut, onNotificationPre
             onValueChange={() => onNotificationPress()}
           />
         </View>
-        <MenuItem title="Mi cuenta" iconName="arrow-forward-outline" />
+        <MenuItem title="Mi cuenta" iconName="arrow-forward-outline" onClick={()=>toMyAccount()}/>
         <MenuItem title="Seguridad" iconName="arrow-forward-outline" />
         <MenuItem title="Ayuda" iconName="arrow-forward-outline" onClick={()=>toContactUs()}/>
         <MenuItem title="Sobre nosotros" iconName="arrow-forward-outline" onClick={()=>toAbouUs()}/>

@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     height: 40,
     paddingHorizontal: 10,
     backgroundColor: "#171717",
+    color:"white"
   },
   TextInputField_inputContainer: {
     flexDirection: "row",

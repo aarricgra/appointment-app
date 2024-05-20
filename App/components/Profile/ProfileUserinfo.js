@@ -3,6 +3,7 @@ import React from "react";
 import Membership from "./Membership";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import GlobalApi from "../../services/GlobalApi";
 
 
 export default function ProfileUserinfo({ user }) {
@@ -14,7 +15,7 @@ export default function ProfileUserinfo({ user }) {
             <Image
               source={{
                 uri:
-                  process.env.EXPO_PUBLIC_API_URL +
+                  GlobalApi.getBaseUrl() +
                   "/uploads/person_e36027a72a.png",
               }}
               style={styles.Img}
@@ -34,7 +35,7 @@ export default function ProfileUserinfo({ user }) {
             </Text>
           </View>
         </View>
-        <TouchableOpacity style={{ flex: 1 }}>
+        <TouchableOpacity>
           <Ionicons name="create-outline" size={38} color={"white"} />
         </TouchableOpacity>
       </View>
