@@ -29,8 +29,8 @@ export default function ServicePicker({ service, onchange }) {
               <Image
                 source={{
                   uri:
-                    process.env.EXPO_PUBLIC_API_URL +
-                    item.attributes.img.data.attributes.url,
+                    GlobalApi.getBaseUrl() +
+                    item.attributes.Imagen.data[0].attributes.url,
                 }}
                 style={styles.imgStyle}
                 alt="Imagen promocional"
@@ -45,14 +45,14 @@ export default function ServicePicker({ service, onchange }) {
               <Image
                 source={{
                   uri:
-                    process.env.EXPO_PUBLIC_API_URL +
-                    item.attributes.img.data.attributes.url,
+                  GlobalApi.getBaseUrl() +
+                    item.attributes.Imagen.data[0].attributes.url,
                 }}
                 style={styles.imgStyle}
                 alt="Imagen promocional"
               />
               <TouchableOpacity style={styles.overlay} onPress={()=>onchange(item.id)}>
-                <Text style={styles.overlayText}>{item.attributes.Nombre}</Text>
+                <Text style={styles.overlayText}>{item.attributes.Nombre}-{(item.attributes.Precio*(1.00-(item.attributes.Oferta/100)))}€</Text>
               </TouchableOpacity>
             </View>
           )
@@ -67,8 +67,8 @@ const separator = parseInt(screenWidth * 0.04);
 const styles = StyleSheet.create({
   title: { color: "white", marginBottom: 10, fontWeight: "bold", fontSize: 18 },
   imgStyle: {
-    width: screenWidth * 0.4,
-    height: 130,
+    width: screenWidth * 0.3,
+    height: screenWidth * 0.3,
     resizeMode: "stretch",
     borderRadius: 20,
   },
@@ -80,8 +80,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: "rgba(0,0,0,0.5)",
     padding: 10,
-    borderBottomEndRadius: 20,
-    borderBottomStartRadius: 20,
+    borderRadius: 20,
     alignItems: "flex-end",
     justifyContent: "flex-end",
   },

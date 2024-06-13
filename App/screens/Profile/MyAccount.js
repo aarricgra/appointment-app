@@ -23,9 +23,7 @@ export default function MyAccount() {
     getUser();
   }, []);
 
-  if (user == null) {
-    return null;
-  }
+  if (user == null) return null;
 
   const screenWidth = Dimensions.get("screen").width;
   const screenHeight = Dimensions.get("screen").height;
@@ -51,7 +49,7 @@ export default function MyAccount() {
         {user.UserImage == undefined ? (
           <Image
             source={{
-              uri: GlobalApi.getBaseUrl() + "/uploads/person_e36027a72a.png",
+              uri: GlobalApi.getBaseUrl() + "/uploads/user_Icon_0208efb472.png",
             }}
             style={{
               height: 120,
@@ -62,7 +60,8 @@ export default function MyAccount() {
             }}
           />
         ) : null}
-        <Membership puntos={user.attributes.PuntosGanados}></Membership>
+        
+        <Membership rango={user.attributes.idRango.data}></Membership>
         <Text style={{ color: "white", fontWeight: "bold", fontSize: 24 }}>
           {user.attributes.Nombre}
         </Text>
@@ -96,7 +95,7 @@ export default function MyAccount() {
           borderRadius: 10,
           alignItems: "center",
           paddingVertical: 10,
-          width: Dimensions.get("screen").width * 0.8,
+          width: screenWidth * 0.8,
           alignSelf: "center",
           marginTop: 10,
         }}

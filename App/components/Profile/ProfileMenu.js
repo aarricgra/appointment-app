@@ -24,7 +24,6 @@ export default function ProfileMenu({ notifications, onLogOut, onNotificationPre
           />
         </View>
         <MenuItem title="Mi cuenta" iconName="arrow-forward-outline" onClick={()=>toMyAccount()}/>
-        <MenuItem title="Seguridad" iconName="arrow-forward-outline" />
         <MenuItem title="Ayuda" iconName="arrow-forward-outline" onClick={()=>toContactUs()}/>
         <MenuItem title="Sobre nosotros" iconName="arrow-forward-outline" onClick={()=>toAbouUs()}/>
         <TouchableOpacity

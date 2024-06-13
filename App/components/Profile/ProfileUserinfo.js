@@ -16,7 +16,7 @@ export default function ProfileUserinfo({ user }) {
               source={{
                 uri:
                   GlobalApi.getBaseUrl() +
-                  "/uploads/person_e36027a72a.png",
+                  "/uploads/user_Icon_0208efb472.png",
               }}
               style={styles.Img}
             />
@@ -29,7 +29,7 @@ export default function ProfileUserinfo({ user }) {
               flex: 1,
             }}
           >
-            <Membership puntos={user.attributes.PuntosGanados} />
+            <Membership rango={user.attributes.idRango.data} />
             <Text style={{ color: "white", fontWeight: "bold", fontSize: 20 }}>
               {user.attributes.Nombre}
             </Text>

@@ -19,9 +19,6 @@ export default function Headers() {
   if(user!=null){
     return (
       <View style={styles.header}>
-        <TouchableOpacity style={{backgroundColor:"white",borderRadius:10,padding:5}}>
-          <Ionicons name="menu" size={30} color={"black"} />
-        </TouchableOpacity>
         <View style={{display:"flex", flexDirection:"row", alignItems:"center",flex:1,gap:10}}>
           <Text style={{ color: "white" , fontSize:30, fontWeight:"bold", marginLeft:10 }}>Hola,</Text>
           <Text style={{ color: "white" , fontSize:30 }}>{user.attributes.Nombre.split(" ")[0]}</Text>

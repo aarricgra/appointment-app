@@ -1,11 +1,12 @@
 import axios from "axios";
+import moment from "moment";
 
 //const BASE_URL = EXPO_PUBLIC_API_URL;
-const BASE_URL ="http://192.168.1.139:1337";
-
+const BASE_URL ="http://192.168.1.70:1337";
+const today = moment().format("YYYY-MM-DD")
 
 const API_KEY =
-  "1cc643519984075833bc67c8a9c75a10db6aa065a23d080b7c9f04a783a9c55dd42ec4c6de88429d4a5f0893fae6389e20971c0d2714c141e53e36022992e19b774bc3280b32a806c95ba953f748a68b5cbe5b59299be1816941b44b95f225faadb551a02d2cac4e5c79874034817efd67e96576e130f69c6a5d299141d2f2d8";
+  "191a0e57af2d16207deed2e599d3ec7aa7a6116d9fa2a0a3365336ac0736072c48a70be5052dfdb39f6f87b1410f1c8cf751ac31d3dc297c1b101f80744ed9f602a9f35157405d630f87bd5e1bb8f0a062f661497126d2b314907eadba3533601319c02f82ce916bf59065f0d87a4be7eef8988389721dacbaa7c44ffa8f3e98";
 
 const AXIOS_INSTANCE = axios.create({
   baseURL: BASE_URL,
@@ -16,9 +17,9 @@ const AXIOS_INSTANCE = axios.create({
 
 const getBaseUrl=()=>BASE_URL;
 
-const getPromociones = () => AXIOS_INSTANCE.get("/api/promocions?populate=*");
+const getPromociones = () => AXIOS_INSTANCE.get("/api/productos?populate=*&filters[Oferta][$gt]=0");
 
-const getServicios = () => AXIOS_INSTANCE.get("/api/servicios?populate=*");
+const getServicios = () => AXIOS_INSTANCE.get("/api/servicios?populate=*&filters[id][$gt]=1");
 
 const getBotones = () => AXIOS_INSTANCE.get("/api/botons?populate=*");
   
@@ -27,6 +28,9 @@ const getMatchingUser =(email)=> AXIOS_INSTANCE.get("/api/clientes?filters[Corre
 const checkLoginCredentials =(email,password)=> AXIOS_INSTANCE.get("/api/clientes?populate=*&filters[Correo][$eq]="+email+"&filters[Password][$eq]="+password);
 
 const getUserAppointments =(email)=>AXIOS_INSTANCE.get("/api/reservas?populate=*&filters[idCliente][Correo][$eq]="+email);
+const getUserNextsAppointments =(email)=>AXIOS_INSTANCE.get("/api/reservas?populate=*&filters[idCliente][Correo][$eq]="+email+"&filters[Fecha][$gte]="+today+"&sort[0]=Fecha:asc")
+
+const getUserLastAppointments =(email)=>AXIOS_INSTANCE.get("/api/reservas?populate=*&filters[idCliente][Correo][$eq]="+email+"&filters[Fecha][$lte]="+today+"&sort[0]=Fecha:desc");
 
 const postNewUser = (data)=> AXIOS_INSTANCE.post("/api/clientes",data)
 
@@ -44,6 +48,8 @@ export default {
   getBotones,
   getMatchingUser,
   getUserAppointments,
+  getUserNextsAppointments,
+  getUserLastAppointments,
   postNewUser,
   checkLoginCredentials,
   getDayAppointmets,

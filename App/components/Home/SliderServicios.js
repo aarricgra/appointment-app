@@ -29,7 +29,7 @@ export default function Slider() {
           <View>
             <Image
               source={{
-                uri: GlobalApi.getBaseUrl() + item.attributes.img.data.attributes.url,
+                uri: GlobalApi.getBaseUrl() + item.attributes.Imagen.data[0].attributes.url,
               }}
               style={styles.imgStyle}
               alt="Imagen promocional"
@@ -45,7 +45,7 @@ export default function Slider() {
 }
 const styles = StyleSheet.create({
   imgStyle:{
-    width: 290/2,
+    width: 180/1.4,
     height: 180/1.5,
     resizeMode: "stretch",
     borderRadius: 20,

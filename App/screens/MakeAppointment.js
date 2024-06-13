@@ -68,9 +68,10 @@ export default function MakeAppointment({navigation}) {
         onchange={(newService) => setSelectedService(newService)}
       />
       <TimePicker
+        key={selectedDay}
         day={selectedDay}
         hour={selectedHour}
-        onchange={(newHour) => setSelectedHour(newHour)}
+        onchange={(newHour) => {setSelectedHour(newHour)}}
       />
       <View
         style={{

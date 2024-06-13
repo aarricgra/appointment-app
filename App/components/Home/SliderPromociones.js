@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import GlobalApi from "../../services/GlobalApi";
 
 export default function Slider() {
-  const [promotions, setPromotions] = useState();
+  const [products, setProducts] = useState();
 
   useEffect(() => {
     getPromociones();
@@ -11,7 +11,7 @@ export default function Slider() {
 
   const getPromociones = () =>
     GlobalApi.getPromociones().then((resp) => {
-      setPromotions(resp.data.data);
+      setProducts(resp.data.data);
     });
 
   return (
@@ -23,19 +23,19 @@ export default function Slider() {
         <Text style={{ marginLeft: "auto", marginRight: 10, color:"white" }}>Ver Todas</Text>
       </View>
       <FlatList
-        data={promotions}
+        data={products}
         horizontal
         renderItem={({ item }) => (
           <View>
             <Image
               source={{
-                uri: GlobalApi.getBaseUrl() + item.attributes.img.data[0].attributes.url,
+                uri: GlobalApi.getBaseUrl() + item.attributes.Imagen.data[0].attributes.url,
               }}
               style={styles.imgStyle}
               alt="Imagen promocional"
             />
             <View style={styles.overlay}>
-              <Text style={styles.overlayText}>{item.attributes.descripcion}</Text>
+              <Text style={styles.overlayText}>Descuento del {item.attributes.Oferta}%</Text>
             </View>
           </View>
         )}
@@ -45,7 +45,7 @@ export default function Slider() {
 }
 const styles = StyleSheet.create({
   imgStyle: {
-    width: 290,
+    width: 180,
     height: 180,
     resizeMode: "stretch",
     borderRadius: 20,

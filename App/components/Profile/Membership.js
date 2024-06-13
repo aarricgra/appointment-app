@@ -2,15 +2,15 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-export default function Membership({ puntos }) {
+export default function Membership({ rango }) {
   let membershipStyle = {};
-  if (puntos < 1000) {
+  if (rango.id ==1) {
     membershipStyle = { backgroundColor:"#c7863c" };
-  } else if (puntos < 2000) {
+  } else if (rango.id ==2) {
     membershipStyle = { backgroundColor:"#d9d9d9" };
-  } else if (puntos < 4000) {
+  } else if (rango.id ==3) {
     membershipStyle = { backgroundColor:"#e8dc00" };
-  } else if (puntos < 8000) {
+  } else if (rango.id ==4) {
     membershipStyle = { backgroundColor:"#34c981" };
   } else {
     membershipStyle = { backgroundColor:"#4ed9e6" };
@@ -21,7 +21,7 @@ export default function Membership({ puntos }) {
       <TouchableOpacity style={[membershipStyle, styles.membershipButton]}>
         <Ionicons name="trophy" size={18} color={"white"} />
         <Text style={{ color:"white", fontWeight:"bold" }}>
-          {puntos < 1000 ? "Bronce" : puntos < 2000 ? "Plata" : puntos < 4000 ? "Oro" : puntos < 8000 ? "Platino" : "Diamante"}
+          {rango.attributes.Nombre}
         </Text>
       </TouchableOpacity>
       <View><Text></Text></View>

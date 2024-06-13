@@ -39,32 +39,32 @@ export default function Home({ navigation }) {
       >
         <ButtonNavigator
           text={"Reservar"}
-          img={"/uploads/calendar_badge_43d894d207.png"}
+          image="add"
           to={() => navigation.navigate("MakeAppointment")}
         />
         <ButtonNavigator
           text={"Servicos"}
-          img={"/uploads/content_cut_b960d268e5.png"}
+          image="cut"
           to={() => navigation.navigate("Services")}
         />
         <ButtonNavigator
           text={"Productos"}
-          img={"/uploads/store_b30d3d8265.png"}
+          image="basket"
           to={() => navigation.navigate("Products")}
         />
         <ButtonNavigator
           text={"Mis Reservas"}
-          img={"/uploads/calendar_clock_outline_d32ed8449b.png"}
-          to={() => navigation.navigate("AppointmentInfo", { id: '3' })}
+          image="calendar"
+          to={() => navigation.navigate("AllApointments")}
         />
         <ButtonNavigator
           text={"Tarjeta Cliente"}
-          img={"/uploads/card_account_details_c17ee4cfc7.png"}
+          image="card"
           to={() => navigation.navigate("ClientCard")}
         />
         <ButtonNavigator
           text={"Contacto"}
-          img={"/uploads/forum_1ad93702f6.png"}
+          image="chatbubbles"
           to={() => navigation.navigate("Contact")}
         />
       </View>

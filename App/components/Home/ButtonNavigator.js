@@ -1,8 +1,10 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
 import React from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import Ionicons from '@expo/vector-icons/Ionicons';
 
-export default function ButtonNavigator({ text, img, to, navigation}) {
+
+export default function ButtonNavigator({ text, image, to, navigation}) {
   return (
     <View
       style={{
@@ -13,13 +15,7 @@ export default function ButtonNavigator({ text, img, to, navigation}) {
       }}
     >
       <TouchableOpacity style={styles.container} onPress={to}>
-        <Image
-          source={{
-            uri: process.env.EXPO_PUBLIC_API_URL+img,
-          }}
-          style={styles.imgStyle}
-          alt="Imagen promocional"
-        />
+        <Ionicons name={image} size={30} color={"white"} />
       </TouchableOpacity>
       <Text style={styles.bText}>{text}</Text>
     </View>
@@ -30,13 +26,13 @@ const styles = StyleSheet.create({
   container: {
     borderColor: "white",
     borderWidth: 3,
-    width: 70,
-    height: 70,
+    width: Dimensions.get("screen").width*0.15,
+    height: Dimensions.get("screen").width*0.15,
     alignItems: "center",
     justifyContent: "center",
     display: "flex",
     borderRadius: 99,
-    marginHorizontal: 30,
+    marginHorizontal: Dimensions.get("screen").width*0.09,
   },
   imgStyle: {
     width: 24,
