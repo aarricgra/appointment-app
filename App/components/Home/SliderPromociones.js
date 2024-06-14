@@ -1,8 +1,9 @@
-import { View, Text, FlatList, Image, Dimensions, StyleSheet } from "react-native";
+import { View, Text, FlatList, Image, Dimensions, StyleSheet, Touchable } from "react-native";
 import React, { useEffect, useState } from "react";
 import GlobalApi from "../../services/GlobalApi";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-export default function Slider() {
+export default function Slider({toSotre,show}) {
   const [products, setProducts] = useState();
 
   useEffect(() => {
@@ -17,10 +18,13 @@ export default function Slider() {
   return (
     <View>
       <View style={{ display: "flex", flexDirection: "row" }}>
-        <Text style={{ fontWeight: "bold", fontSize: 16, marginLeft: 10 ,color:"white"}}>
+        <Text style={{ fontWeight: "bold", fontSize: 16, marginLeft: 10 ,color:"white",flex:1}}>
           Promociones
         </Text>
-        <Text style={{ marginLeft: "auto", marginRight: 10, color:"white" }}>Ver Todas</Text>
+        {show?<TouchableOpacity onPress={()=>toSotre()}>
+                  <Text  style={{ marginLeft: "auto", marginRight: 10, color:"white" }}>Ver Todas</Text>
+        </TouchableOpacity>:""}
+        
       </View>
       <FlatList
         data={products}

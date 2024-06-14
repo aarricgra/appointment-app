@@ -42,6 +42,7 @@ export default function EmailRegister({ navigation }) {
                 Nombre: fullName,
                 Correo: email,
                 Password: password,
+                Rango:1
               },
             };
             await GlobalApi.postNewUser(json).then((res) => {

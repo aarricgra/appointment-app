@@ -27,7 +27,7 @@ export default function Home({ navigation }) {
     >
       <Headers />
       <AppointmentTop />
-      <SliderPromociones />
+      <SliderPromociones toSotre={() => navigation.navigate("Store")} show={true}/>
       <SliderServicios />
       <View
         style={{
@@ -50,7 +50,7 @@ export default function Home({ navigation }) {
         <ButtonNavigator
           text={"Productos"}
           image="basket"
-          to={() => navigation.navigate("Products")}
+          to={() => navigation.navigate("Store")}
         />
         <ButtonNavigator
           text={"Mis Reservas"}
@@ -65,7 +65,7 @@ export default function Home({ navigation }) {
         <ButtonNavigator
           text={"Contacto"}
           image="chatbubbles"
-          to={() => navigation.navigate("Contact")}
+          to={() => navigation.navigate("ContactUs")}
         />
       </View>
     </View>

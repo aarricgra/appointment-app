@@ -4,58 +4,64 @@ import GlobalApi from "../../services/GlobalApi";
 import moment from "moment";
 import { SelectList } from "react-native-dropdown-select-list";
 
-export default function TimePicker({ day, onchange,hour }) {
-  const [appointments, setAppointmets] = useState([]);
-  const hours = [];
-  const start = moment("08:00", "HH:mm");
-  const end = moment("23:00", "HH:mm");
+export default function TimePicker({ day, onchange, hour }) {
+  const [appointments, setAppointments] = useState([]);
+  const [availableHours, setAvailableHours] = useState([]);
   const interval = 25;
-  this.timeArray = [];
-
-  while (start <= end) {
-    hours.push(start.format("HH:mm"));
-    start.add(interval, "minutes");
-  }
-
-  
 
   useEffect(() => {
-    getDayAppointments();
+    const fetchDayAppointments = async () => {
+      const response = await GlobalApi.getDayAppointmets(day);
+      setAppointments(response.data.data);
+    };
+
+    fetchDayAppointments();
   }, [day]);
 
-  const getDayAppointments = () =>
-    GlobalApi.getDayAppointmets(day).then((resp) => {
-      setAppointmets(resp.data.data);
-    });
+  useEffect(() => {
+    const hours = [];
+    const start = moment("08:00", "HH:mm");
+    const end = moment("23:00", "HH:mm");
 
-    if(appointments.length>0){
-        appointments.forEach((item)=>{
-            const hora = moment(item.attributes.Hora,"HH:mm:sss").format("HH:mm")
-            hours.splice(hours.findIndex((element) => element == hora),1)
-        })
+    while (start <= end) {
+      hours.push(start.format("HH:mm"));
+      start.add(interval, "minutes");
     }
 
-    onchange(hours[0])
+    if (appointments.length > 0) {
+      appointments.forEach((item) => {
+        const appointmentTime = moment(item.attributes.Hora, "HH:mm:sss").format("HH:mm");
+        const index = hours.indexOf(appointmentTime);
+        if (index !== -1) {
+          hours.splice(index, 1);
+        }
+      });
+    }
 
+    setAvailableHours(hours);
+
+    if (hours.length > 0) {
+      onchange(hours[0]);
+    }
+  }, [appointments, onchange]);
 
   return (
-    <View style={{ paddingHorizontal: separator, paddingBottom:20}}>
+    <View style={{ paddingHorizontal: separator, paddingBottom: 20 }}>
       <Text style={styles.title}>Horas disponibles</Text>
-        <SelectList
-        data={hours}
+      <SelectList
+        data={availableHours}
         placeholder="Elige una hora"
-        dropdownTextStyles={{color:"white"}}
-        inputStyles={{color:"white"}}
-        boxStyles={{color:"wihte"}}
-        dropdownStyles={{color:"wihte"}}
+        dropdownTextStyles={{ color: "white" }}
+        inputStyles={{ color: "white" }}
+        boxStyles={{ color: "white" }}
+        dropdownStyles={{ color: "white" }}
         setSelected={onchange}
         search={false}
-        >
-
-        </SelectList>
+      />
     </View>
   );
 }
+
 const screenWidth = Dimensions.get("screen").width;
 const separator = parseInt(screenWidth * 0.04);
 const styles = StyleSheet.create({

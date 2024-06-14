@@ -20,7 +20,6 @@ export default function Slider() {
         <Text style={{ fontWeight: "bold", fontSize: 16, marginLeft: 10, color:"white" }}>
           Servicios
         </Text>
-        <Text style={{ marginLeft: "auto", marginRight: 10, color : "white" }}>Ver Todos</Text>
       </View>
       <FlatList
         data={services}
@@ -35,7 +34,10 @@ export default function Slider() {
               alt="Imagen promocional"
             />
             <View style={styles.overlay}>
-              <Text style={styles.overlayText}>{item.attributes.Nombre}</Text>
+              <Text style={styles.overlayText}>{item.attributes.Nombre}-
+                  {item.attributes.Precio *
+                    (1.0 - item.attributes.Oferta / 100)}
+                  €</Text>
             </View>
           </View>
         )}

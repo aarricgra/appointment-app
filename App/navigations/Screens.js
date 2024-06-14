@@ -13,15 +13,16 @@ import AppointmentInfo from "../screens/AppointmentInfo";
 import Profile from "../screens/Profile/Profile";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import MakeAppointment from "../screens/MakeAppointment"
+import MakeAppointment from "../screens/MakeAppointment";
 import ButtonNavigator from "../components/Home/ButtonNavigator";
 import AboutUs from "../screens/Profile/AboutUs";
 import ContactUs from "../screens/Profile/ContactUs";
 import MyAccount from "../screens/Profile/MyAccount";
+import Store from "../screens/Store";
+import Services from "../screens/Services";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-
 
 function MainStack() {
   return (
@@ -58,7 +59,7 @@ function MainStack() {
       />
       <Tab.Screen
         name="Store"
-        component={Profile}
+        component={Store}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="basket" size={size} color={color} />
@@ -74,7 +75,7 @@ function MainStack() {
             <FontAwesome name="user-circle" size={size} color={color} />
           ),
           title: "Perfil",
-          headerShown:true,
+          headerShown: true,
           headerStyle: {
             backgroundColor: "#171717",
           },
@@ -84,8 +85,6 @@ function MainStack() {
     </Tab.Navigator>
   );
 }
-
-
 
 export default function Screens() {
   return (
@@ -116,12 +115,12 @@ export default function Screens() {
         name="EmailLogin"
         component={EmailLogin}
         options={{
-            title: "",
-            headerStyle: {
-              backgroundColor: "#171717",
-            },
-            headerTintColor: "#fff",
-          }}
+          title: "",
+          headerStyle: {
+            backgroundColor: "#171717",
+          },
+          headerTintColor: "#fff",
+        }}
       />
       <Stack.Screen
         name="EmailRegister"
@@ -138,23 +137,23 @@ export default function Screens() {
         name="MakeAppointment"
         component={MakeAppointment}
         options={{
-            title: "Reservar cita",
-            headerStyle: {
-              backgroundColor: "#171717",
-            },
-            headerTintColor: "#fff",
-          }}
+          title: "Reservar cita",
+          headerStyle: {
+            backgroundColor: "#171717",
+          },
+          headerTintColor: "#fff",
+        }}
       />
       <Stack.Screen
         name="AppointmentInfo"
         component={AppointmentInfo}
         options={{
-            title: "Información cita",
-            headerStyle: {
-              backgroundColor: "#171717",
-            },
-            headerTintColor: "#fff",
-          }}
+          title: "Información cita",
+          headerStyle: {
+            backgroundColor: "#171717",
+          },
+          headerTintColor: "#fff",
+        }}
       />
       <Stack.Screen
         name="ButtonNavigator"
@@ -184,11 +183,22 @@ export default function Screens() {
         }}
       />
 
-<Stack.Screen
+      <Stack.Screen
         name="MyAccount"
         component={MyAccount}
         options={{
           title: "Mi cuenta",
+          headerStyle: {
+            backgroundColor: "#171717",
+          },
+          headerTintColor: "#fff",
+        }}
+      />
+      <Stack.Screen
+        name="Services"
+        component={Services}
+        options={{
+          title: "Servicios",
           headerStyle: {
             backgroundColor: "#171717",
           },

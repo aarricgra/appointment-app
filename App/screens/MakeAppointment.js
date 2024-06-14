@@ -23,6 +23,7 @@ export default function MakeAppointment({navigation}) {
   const [selectedDay, setSelectedDay] = useState(moment().format("YYYY-MM-DD"));
   const [selectedHour, setSelectedHour] = useState("");
   const [selectedService, setSelectedService] = useState("");
+  const [price, setPrice] = useState("");
   const [user,setUser]=useState(null)
 
   const getUser = async ()=>{
@@ -48,7 +49,8 @@ export default function MakeAppointment({navigation}) {
           Fecha: selectedDay,
           Hora: selectedHour+":00.00",
           idServicio: selectedService,
-          idCliente:user.id
+          idCliente:user.id,
+          Coste:price
         },
       };
       console.log(data);
@@ -65,7 +67,7 @@ export default function MakeAppointment({navigation}) {
       <CustomCalendar onDay={(day) => setSelectedDay(day)} />
       <ServicePicker
         service={selectedService}
-        onchange={(newService) => setSelectedService(newService)}
+        onchange={(newService,price) => {setSelectedService(newService);setPrice(price)}}
       />
       <TimePicker
         key={selectedDay}

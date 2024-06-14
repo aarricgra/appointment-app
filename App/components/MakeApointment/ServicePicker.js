@@ -51,7 +51,7 @@ export default function ServicePicker({ service, onchange }) {
                 style={styles.imgStyle}
                 alt="Imagen promocional"
               />
-              <TouchableOpacity style={styles.overlay} onPress={()=>onchange(item.id)}>
+              <TouchableOpacity style={styles.overlay} onPress={()=>onchange(item.id,(item.attributes.Precio*(1.00-(item.attributes.Oferta/100))))}>
                 <Text style={styles.overlayText}>{item.attributes.Nombre}-{(item.attributes.Precio*(1.00-(item.attributes.Oferta/100)))}€</Text>
               </TouchableOpacity>
             </View>

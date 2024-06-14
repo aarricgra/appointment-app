@@ -18,6 +18,7 @@ const AXIOS_INSTANCE = axios.create({
 const getBaseUrl=()=>BASE_URL;
 
 const getPromociones = () => AXIOS_INSTANCE.get("/api/productos?populate=*&filters[Oferta][$gt]=0");
+const getProductosFiltered = (value) =>AXIOS_INSTANCE.get("/api/productos?populate=*&filters[Nombre][$containsi]="+value);
 
 const getServicios = () => AXIOS_INSTANCE.get("/api/servicios?populate=*&filters[id][$gt]=1");
 
@@ -36,14 +37,15 @@ const postNewUser = (data)=> AXIOS_INSTANCE.post("/api/clientes",data)
 
 const getDayAppointmets = (day) => AXIOS_INSTANCE.get("/api/reservas?filters[Fecha][$eq]="+day)
 const getAppoitmentById = (id) => AXIOS_INSTANCE.get("/api/reservas?populate=*&filters[id][$eq]="+id)
-const getServiceById = (id) => AXIOS_INSTANCE.get("/api/servicios?filters[id][$eq]="+id)
+const getServiceById = (id) => AXIOS_INSTANCE.get("/api/servicios?populate=*&filters[id][$eq]="+id)
 
-
+const deleteAppointment=(id)=> AXIOS_INSTANCE.delete("/api/reservas/"+id)
 const postNewAppointment = (data)=> AXIOS_INSTANCE.post("/api/reservas",data)
 
 
 export default {
   getPromociones,
+  getProductosFiltered,
   getServicios,
   getBotones,
   getMatchingUser,
@@ -56,5 +58,6 @@ export default {
   postNewAppointment,
   getAppoitmentById,
   getServiceById,
-  getBaseUrl
+  getBaseUrl,
+  deleteAppointment
 };
