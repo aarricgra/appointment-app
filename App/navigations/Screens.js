@@ -20,6 +20,7 @@ import ContactUs from "../screens/Profile/ContactUs";
 import MyAccount from "../screens/Profile/MyAccount";
 import Store from "../screens/Store";
 import Services from "../screens/Services";
+import ClientCard from "../screens/ClientCard";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -199,6 +200,17 @@ export default function Screens() {
         component={Services}
         options={{
           title: "Servicios",
+          headerStyle: {
+            backgroundColor: "#171717",
+          },
+          headerTintColor: "#fff",
+        }}
+      />
+      <Stack.Screen
+        name="ClientCard"
+        component={ClientCard}
+        options={{
+          title: "Tarjeta Cliente",
           headerStyle: {
             backgroundColor: "#171717",
           },

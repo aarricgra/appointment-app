@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
 import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import SliderPromociones from "../components/Home/SliderPromociones";
 import GlobalApi from "../services/GlobalApi";
 
 export default function () {
