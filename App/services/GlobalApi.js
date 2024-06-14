@@ -34,6 +34,7 @@ const getUserNextsAppointments =(email)=>AXIOS_INSTANCE.get("/api/reservas?popul
 const getUserLastAppointments =(email)=>AXIOS_INSTANCE.get("/api/reservas?populate=*&filters[idCliente][Correo][$eq]="+email+"&filters[Fecha][$lte]="+today+"&sort[0]=Fecha:desc");
 
 const postNewUser = (data)=> AXIOS_INSTANCE.post("/api/clientes",data)
+const putNewUser = (id,data)=> AXIOS_INSTANCE.put("/api/clientes/"+id,data)
 
 const getDayAppointmets = (day) => AXIOS_INSTANCE.get("/api/reservas?filters[Fecha][$eq]="+day)
 const getAppoitmentById = (id) => AXIOS_INSTANCE.get("/api/reservas?populate=*&filters[id][$eq]="+id)
@@ -41,6 +42,7 @@ const getServiceById = (id) => AXIOS_INSTANCE.get("/api/servicios?populate=*&fil
 
 const deleteAppointment=(id)=> AXIOS_INSTANCE.delete("/api/reservas/"+id)
 const postNewAppointment = (data)=> AXIOS_INSTANCE.post("/api/reservas",data)
+
 
 
 export default {
@@ -59,5 +61,6 @@ export default {
   getAppoitmentById,
   getServiceById,
   getBaseUrl,
-  deleteAppointment
+  deleteAppointment,
+  putNewUser
 };
