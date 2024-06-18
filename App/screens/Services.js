@@ -3,21 +3,17 @@ import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 import GlobalApi from "../services/GlobalApi";
 
 export default function () {
-  const [search, setSearch] = useState("");
   const [serviceList, setServiceList] = useState([]);
 
   useEffect(() => {
     getServices();
-  }, [search]);
+  }, []);
 
   const getServices = async () => {
     const res = GlobalApi.getServicios();
     setServiceList((await res).data.data);
   };
 
-  function handleChange(value) {
-    setSearch(value);
-  }
   return (
     <View
       style={{

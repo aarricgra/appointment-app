@@ -38,8 +38,11 @@ export default function CustomCalendar({onDay}) {
     today: "Hoy"
   };
   LocaleConfig.defaultLocale="es"
+
   const today= moment().format("YYYY-MM-DD")
   const [selected, setSelected] = useState(today);
+  //Cada vez que se modifique el selected cambiara que dia
+  //Esta marcado en el calendario
   const marked = useMemo(
     () => ({
       [selected]: {
@@ -53,7 +56,9 @@ export default function CustomCalendar({onDay}) {
       <Text style={styles.title}>Elige fecha</Text>
       <Calendar
       style={{
-        backgroundColor:"transparent",borderWidth:3,borderColor:"white",borderRadius:15
+        backgroundColor:"transparent",
+        borderWidth:3,borderColor:"white",
+        borderRadius:15
       }}
         onDayPress={(day) => {
           setSelected(moment(day.dateString).format("YYYY-MM-DD"));
@@ -67,12 +72,11 @@ export default function CustomCalendar({onDay}) {
           monthTextColor: "#888",
         }}
         firstDay={1}
-    />
+      />
     </View>
   );
 }
 const screenWidth=Dimensions.get("screen").width
-const screenHeight=Dimensions.get("screen").height
 const separator=parseInt(screenWidth*0.04)
 const styles = StyleSheet.create({
     title:{color:"white",marginBottom:10,fontWeight:"bold",fontSize:18}

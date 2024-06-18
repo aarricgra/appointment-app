@@ -6,7 +6,7 @@ import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import moment from "moment";
 import { useFocusEffect } from "@react-navigation/native";
 
-export default function Appointment({navigation}) {
+export default function Appointment({ navigation }) {
   const [nextAppointments, setNextAppointments] = useState([]);
   const [lastAppointments, setLastAppointments] = useState([]);
   const [user, setUser] = useState(null);
@@ -19,34 +19,21 @@ export default function Appointment({navigation}) {
     }
   };
 
+  //Guardo las reservas pasadas
   const getUserLastAppointments = async (email) => {
-    try {
-      const resp = await GlobalApi.getUserLastAppointments(email);
-      setLastAppointments(resp.data.data);
-    } catch (error) {
-      console.error("Error fetching user last appointments:", error);
-    }
+    const resp = await GlobalApi.getUserLastAppointments(email);
+    setLastAppointments(resp.data.data);
   };
 
+  //Guardo las reservas futuras
   const getUserNextsAppointments = async (email) => {
-    try {
-      const resp = await GlobalApi.getUserNextsAppointments(email);
-      setNextAppointments(resp.data.data);
-    } catch (error) {
-      console.error("Error fetching user last appointments:", error);
-    }
+    const resp = await GlobalApi.getUserNextsAppointments(email);
+    setNextAppointments(resp.data.data);
   };
 
   useEffect(() => {
     getUser();
   }, []);
-
-  useEffect(() => {
-    if (user && user.attributes && user.attributes.Correo) {
-      getUserLastAppointments(user.attributes.Correo);
-      getUserNextsAppointments(user.attributes.Correo);
-    }
-  }, [user]);
 
   useFocusEffect(
     useCallback(() => {
@@ -120,12 +107,30 @@ export default function Appointment({navigation}) {
           horizontal={false}
           renderItem={({ item }) => (
             <View style={{ paddingVertical: 10, paddingHorizontal: 20 }}>
-              <TouchableOpacity style={{ borderColor: "grey", borderWidth: 2,borderRadius:20  }} onPress={()=>navigation.navigate("AppointmentInfo", { id: item.id })}>
-                <View style={{ paddingVertical: 20, paddingHorizontal: 20, display:"flex",flexDirection:"row",gap:5}}>
-                <Text style={{fontSize:20,color:"white"}}>
-                  {item.attributes.idServicio.data.attributes.Nombre}    Dia:
-                  {moment(item.attributes.Fecha).format("DD/MM/YYYY")}    Hora:
-                  {moment(item.attributes.Hora,"HH:mm:sss").format("HH:mm")}</Text>
+              <TouchableOpacity
+                style={{
+                  borderColor: "grey",
+                  borderWidth: 2,
+                  borderRadius: 20,
+                }}
+                onPress={() =>
+                  navigation.navigate("AppointmentInfo", { id: item.id })
+                }
+              >
+                <View
+                  style={{
+                    paddingVertical: 20,
+                    paddingHorizontal: 20,
+                    display: "flex",
+                    flexDirection: "row",
+                    gap: 5,
+                  }}
+                >
+                  <Text style={{ fontSize: 20, color: "white" }}>
+                    {item.attributes.idServicio.data.attributes.Nombre} Dia:
+                    {moment(item.attributes.Fecha).format("DD/MM/YYYY")} Hora:
+                    {moment(item.attributes.Hora, "HH:mm:sss").format("HH:mm")}
+                  </Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -137,12 +142,30 @@ export default function Appointment({navigation}) {
           horizontal={false}
           renderItem={({ item }) => (
             <View style={{ paddingVertical: 10, paddingHorizontal: 20 }}>
-              <TouchableOpacity style={{ borderColor: "grey", borderWidth: 2,borderRadius:20 }} onPress={()=>navigation.navigate("AppointmentInfo", { id: item.id })}>
-                <View style={{ paddingVertical: 20, paddingHorizontal: 20, display:"flex",flexDirection:"row",gap:5}}>
-                <Text style={{fontSize:20,color:"white"}}>
-                  {item.attributes.idServicio.data.attributes.Nombre}    Dia:
-                  {moment(item.attributes.Fecha).format("DD/MM/YYYY")}    Hora:
-                  {moment(item.attributes.Hora,"HH:mm:sss").format("HH:mm")}</Text>
+              <TouchableOpacity
+                style={{
+                  borderColor: "grey",
+                  borderWidth: 2,
+                  borderRadius: 20,
+                }}
+                onPress={() =>
+                  navigation.navigate("AppointmentInfo", { id: item.id })
+                }
+              >
+                <View
+                  style={{
+                    paddingVertical: 20,
+                    paddingHorizontal: 20,
+                    display: "flex",
+                    flexDirection: "row",
+                    gap: 5,
+                  }}
+                >
+                  <Text style={{ fontSize: 20, color: "white" }}>
+                    {item.attributes.idServicio.data.attributes.Nombre} Dia:
+                    {moment(item.attributes.Fecha).format("DD/MM/YYYY")} Hora:
+                    {moment(item.attributes.Hora, "HH:mm:sss").format("HH:mm")}
+                  </Text>
                 </View>
               </TouchableOpacity>
             </View>

@@ -6,10 +6,14 @@ export default function Pro({navigation}) {
   useFocusEffect(()=>{
     const getData = async () => {
       try {
+        //Esta registrado en cache?
         const info = await AsyncStorage.getItem('user');
+        //Si: ir a Home
         if (info) {
             navigation.navigate("MainStack");
-        } else {
+        }
+        //No: ir a LoginHub 
+        else {
             navigation.navigate("LoginHub");
         }
       } catch (error) {

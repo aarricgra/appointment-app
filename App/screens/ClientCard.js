@@ -1,17 +1,22 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { View, Text, Button, Dimensions } from "react-native";
-import GlobalApi from "../services/GlobalApi"
+import GlobalApi from "../services/GlobalApi";
 
 const RandomNumberGenerator = () => {
   const [randomPrice, setRandomPrice] = useState(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [prices, setPrices] = useState([]);
   const [user, setUser] = useState(null);
+  const randomPriceRef = useRef(randomPrice);
 
   useEffect(() => {
     getUserInfo();
   }, []);
+
+  useEffect(() => {
+    randomPriceRef.current = randomPrice;
+  }, [randomPrice]);
 
   const getUserInfo = async () => {
     const storedUser = await AsyncStorage.getItem("user");
@@ -20,17 +25,17 @@ const RandomNumberGenerator = () => {
       let userInfo = JSON.parse(storedUser);
       let values = [];
       if (
-        userInfo.attributes.idRango.data.id == 1 ||
-        userInfo.attributes.idRango.data.id == 2
+        userInfo.attributes.idRango.data.attributes.Nombre === "Cobre" ||
+        userInfo.attributes.idRango.data.attributes.Nombre === "Plata"
       ) {
-        values = [0.15, 0.25, 0.5, 1];
+        values = [0.15, 0.25, 0.50, 1.00];
       } else if (
-        userInfo.attributes.idRango.data.id == 3 ||
-        userInfo.attributes.idRango.data.id == 4
+        userInfo.attributes.idRango.data.attributes.Nombre === "Oro" ||
+        userInfo.attributes.idRango.data.attributes.Nombre === "Platino"
       ) {
-        values = [0.25, 0.5, 1.0, 1.5];
+        values = [0.25, 0.50, 1.00, 1.50];
       } else {
-        values = [0.4, 0.8, 1.25, 2.0];
+        values = [0.40, 0.80, 1.25, 2.00];
       }
       setPrices(values);
     }
@@ -41,34 +46,41 @@ const RandomNumberGenerator = () => {
 
     if (isGenerating) {
       let count = 0;
-      intervalId = setInterval(() => {
+      intervalId = setInterval(async () => {
         let randomNumber = Math.floor(Math.random() * 100);
+        let price;
         if (randomNumber < 50) {
-          setRandomPrice(prices[0]);
+          price = prices[0];
         } else if (randomNumber < 85) {
-          setRandomPrice(prices[1]);
+          price = prices[1];
         } else if (randomNumber < 95) {
-          setRandomPrice(prices[2]);
+          price = prices[2];
         } else {
-          setRandomPrice(prices[3]);
+          price = prices[3];
         }
+        setRandomPrice(price);
+        randomPriceRef.current = price;
+
         count++;
 
         if (count >= 20) {
           clearInterval(intervalId);
           setIsGenerating(false);
-          let modifiedUser=user
-          modifiedUser.attributes.Cartera+=randomPrice
-          modifiedUser.attributes.Tickets-=1
-          AsyncStorage.setItem("user",JSON.stringify(modifiedUser))
-          const data={
-            data:{
-              Cartera:modifiedUser.attributes.Cartera,
-              Tickets:modifiedUser.attributes.Tickets
-            }
-          }
-          
-          GlobalApi.putNewUser(modifiedUser.id,data).then(getUserInfo())
+          //Copio el user de AsyncStorage
+          let modifiedUser = { ...user };
+          //Modifico sus valores
+          modifiedUser.attributes.Cartera += randomPriceRef.current;
+          modifiedUser.attributes.Tickets -= 1;
+          //Lo asigno al nuevo con la cartera acutalizada
+          await AsyncStorage.setItem("user", JSON.stringify(modifiedUser));
+          const data = {
+            data: {
+              Cartera: modifiedUser.attributes.Cartera,
+              Tickets: modifiedUser.attributes.Tickets,
+            },
+          };
+          //Actualizo el de la api
+          await GlobalApi.putNewUser(modifiedUser.id, data).then(getUserInfo());
         }
       }, 250);
     }
@@ -116,16 +128,23 @@ const RandomNumberGenerator = () => {
           borderColor: "grey",
           padding: 10,
           borderRadius: 20,
-          display:"flex",
-          justifyContent:"center",
-          marginBottom:20
+          display: "flex",
+          justifyContent: "center",
+          marginBottom: 20,
         }}
       >
-        <Text style={{ fontSize: 24, marginBottom: 20, color: "white",textAlign:"center"}}>
-            {randomPrice !== null ? randomPrice + "€" : "????€"}
+        <Text
+          style={{
+            fontSize: 24,
+            marginBottom: 20,
+            color: "white",
+            textAlign: "center",
+          }}
+        >
+          {randomPrice !== null ? randomPrice + "€" : "????€"}
         </Text>
       </View>
-      
+
       {user.attributes.Tickets > 0 ? (
         <Button
           title={"Usar ticket 1/" + user.attributes.Tickets}
@@ -133,11 +152,7 @@ const RandomNumberGenerator = () => {
           disabled={isGenerating}
         />
       ) : (
-        <Button
-          title="No te quedan tickets"
-          onPress={handleButtonClick}
-          disabled={true}
-        />
+        <Button title="No te quedan tickets" disabled={true} />
       )}
     </View>
   );

@@ -4,39 +4,71 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import GlobalApi from "../../services/GlobalApi";
 import TextInputField from "../../components/Auth/TextInputField";
 import PasswordInputField from "../../components/Auth/PasswordInputField";
-import AuthCssStore from "../../css/AuthCssStore"
+import AuthCssStore from "../../css/AuthCssStore";
 import { TouchableOpacity } from "react-native-gesture-handler";
-
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+  const [dontExist,setDontExist] =useState(false)
+
+  //Guardar en cacho el usuario
   function handleLogin() {
     GlobalApi.checkLoginCredentials(email, password).then(async (resp) => {
-      const user =(resp.data.data[0]);
-      await AsyncStorage.setItem("user",JSON.stringify(user)).then(navigation.navigate("Pro"))
+      //Si existe se guarda si no se modifica dontexist para que
+      //Aparezca el texto de credenciales no validas
+      if (resp.data.data[0]) {
+        const user = resp.data.data[0];
+        await AsyncStorage.setItem("user", JSON.stringify(user)).then(
+          navigation.navigate("Pro")
+        );
+      }else{
+        setDontExist(true)
+      }
     });
   }
 
   return (
     <View style={AuthCssStore.EmailRegister_container}>
       <View style={AuthCssStore.TextInputField_slot}>
-        <Text style={AuthCssStore.EmailRegister_title} >Hola de nuevo</Text>
+        <Text style={AuthCssStore.EmailRegister_title}>Hola de nuevo</Text>
         <Text style={AuthCssStore.EmailRegister_subtitle}>
-           Introduce tus datos para iniciar sesión en tu cuenta. ¡Nos vemos dentro!
+          Introduce tus datos para iniciar sesión en tu cuenta. ¡Nos vemos
+          dentro!
         </Text>
       </View>
-      <TextInputField icon="mail" onchange={(text) => setEmail(text)} placeholder={"Email"} title={"Email"} value={email}/>
-      <PasswordInputField icon={"lock-closed"} onchange={(text) => setPassword(text)} placeholder={"Password"} title={"Contraseña"} value={password}/>
+      <TextInputField
+        icon="mail"
+        onchange={(text) => setEmail(text)}
+        placeholder={"Email"}
+        title={"Email"}
+        value={email}
+      />
+      <PasswordInputField
+        icon={"lock-closed"}
+        onchange={(text) => setPassword(text)}
+        placeholder={"Password"}
+        title={"Contraseña"}
+        value={password}
+      />
+      {dontExist?
+      <View style={{paddingHorizontal:20}}>
+        <Text style={{color:"red"}}>
+          Credenciales no validas
+        </Text>
+      </View>
+      :""}
       <View style={AuthCssStore.TextInputField_slot}>
         <TouchableOpacity
           style={AuthCssStore.EmailRegister_button}
           onPress={handleLogin}
         >
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Iniciar sesión</Text>
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+            Iniciar sesión
+          </Text>
         </TouchableOpacity>
-        </View>
+      </View>
+      
     </View>
   );
 }
@@ -45,13 +77,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor:"#171717"
+    backgroundColor: "#171717",
   },
   title: {
     fontSize: 24,
     marginBottom: 20,
     fontWeight: "bold",
-    color:"white"
+    color: "white",
   },
   input: {
     width: 300,

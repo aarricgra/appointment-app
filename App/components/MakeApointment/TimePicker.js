@@ -7,7 +7,7 @@ import { SelectList } from "react-native-dropdown-select-list";
 export default function TimePicker({ day, onchange, hour }) {
   const [appointments, setAppointments] = useState([]);
   const [availableHours, setAvailableHours] = useState([]);
-  const interval = 25;
+  
 
   useEffect(() => {
     const fetchDayAppointments = async () => {
@@ -19,10 +19,12 @@ export default function TimePicker({ day, onchange, hour }) {
   }, [day]);
 
   useEffect(() => {
+    const interval = 25;
     const hours = [];
     const start = moment("08:00", "HH:mm");
     const end = moment("23:00", "HH:mm");
 
+    //Rellenar array con todas las horas
     while (start <= end) {
       hours.push(start.format("HH:mm"));
       start.add(interval, "minutes");
@@ -30,7 +32,11 @@ export default function TimePicker({ day, onchange, hour }) {
 
     if (appointments.length > 0) {
       appointments.forEach((item) => {
-        const appointmentTime = moment(item.attributes.Hora, "HH:mm:sss").format("HH:mm");
+        //Darle formato a la hora de la reserva
+        const appointmentTime = moment(
+          item.attributes.Hora, "HH:mm:sss"
+        ).format("HH:mm");
+        //Borrar esa misma hora del array
         const index = hours.indexOf(appointmentTime);
         if (index !== -1) {
           hours.splice(index, 1);
@@ -43,7 +49,7 @@ export default function TimePicker({ day, onchange, hour }) {
     if (hours.length > 0) {
       onchange(hours[0]);
     }
-  }, [appointments, onchange]);
+  }, [appointments]);
 
   return (
     <View style={{ paddingHorizontal: separator, paddingBottom: 20 }}>
@@ -55,7 +61,7 @@ export default function TimePicker({ day, onchange, hour }) {
         inputStyles={{ color: "white" }}
         boxStyles={{ color: "white" }}
         dropdownStyles={{ color: "white" }}
-        setSelected={onchange}
+        setSelected={(value)=>onchange(value)}
         search={false}
       />
     </View>

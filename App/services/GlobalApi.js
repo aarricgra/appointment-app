@@ -1,7 +1,6 @@
 import axios from "axios";
 import moment from "moment";
 
-//const BASE_URL = EXPO_PUBLIC_API_URL;
 const BASE_URL ="http://192.168.1.70:1337";
 const today = moment().format("YYYY-MM-DD")
 
@@ -17,13 +16,24 @@ const AXIOS_INSTANCE = axios.create({
 
 const getBaseUrl=()=>BASE_URL;
 
-const getPromociones = () => AXIOS_INSTANCE.get("/api/productos?populate=*&filters[Oferta][$gt]=0");
-const getProductosFiltered = (value) =>AXIOS_INSTANCE.get("/api/productos?populate=*&filters[Nombre][$containsi]="+value);
+//Coger todas los productos con alguna rebaja
+const getPromociones = () => 
+  AXIOS_INSTANCE.get(
+    "/api/productos?populate=*&filters[Oferta][$gt]=0"
+  );
 
-const getServicios = () => AXIOS_INSTANCE.get("/api/servicios?populate=*&filters[id][$gt]=1");
+//Coger productos usando un filtro de nombre
+const getProductosFiltered = (value) =>
+  AXIOS_INSTANCE.get(
+    "/api/productos?populate=*&filters[Nombre][$containsi]="+value
+  );
 
-const getBotones = () => AXIOS_INSTANCE.get("/api/botons?populate=*");
-  
+//Coger todos los servicios
+const getServicios = () => 
+  AXIOS_INSTANCE.get(
+    "/api/servicios?populate=*&filters[Nombre][$ne]=Cerrado"
+  );
+
 const getMatchingUser =(email)=> AXIOS_INSTANCE.get("/api/clientes?filters[Correo][$eq]="+email);
 
 const checkLoginCredentials =(email,password)=> AXIOS_INSTANCE.get("/api/clientes?populate=*&filters[Correo][$eq]="+email+"&filters[Password][$eq]="+password);
@@ -31,7 +41,7 @@ const checkLoginCredentials =(email,password)=> AXIOS_INSTANCE.get("/api/cliente
 const getUserAppointments =(email)=>AXIOS_INSTANCE.get("/api/reservas?populate=*&filters[idCliente][Correo][$eq]="+email);
 const getUserNextsAppointments =(email)=>AXIOS_INSTANCE.get("/api/reservas?populate=*&filters[idCliente][Correo][$eq]="+email+"&filters[Fecha][$gte]="+today+"&sort[0]=Fecha:asc")
 
-const getUserLastAppointments =(email)=>AXIOS_INSTANCE.get("/api/reservas?populate=*&filters[idCliente][Correo][$eq]="+email+"&filters[Fecha][$lte]="+today+"&sort[0]=Fecha:desc");
+const getUserLastAppointments =(email)=>AXIOS_INSTANCE.get("/api/reservas?populate=*&filters[idCliente][Correo][$eq]="+email+"&filters[Fecha][$lt]="+today+"&sort[0]=Fecha:desc");
 
 const postNewUser = (data)=> AXIOS_INSTANCE.post("/api/clientes",data)
 const putNewUser = (id,data)=> AXIOS_INSTANCE.put("/api/clientes/"+id,data)
@@ -49,7 +59,6 @@ export default {
   getPromociones,
   getProductosFiltered,
   getServicios,
-  getBotones,
   getMatchingUser,
   getUserAppointments,
   getUserNextsAppointments,

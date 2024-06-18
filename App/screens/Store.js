@@ -9,6 +9,8 @@ export default function () {
   const [search, setSearch] = useState("");
   const [productList, setProductList] = useState([]);
 
+  //Cada vez que se actualice search
+  //actualiza los productos
   useEffect(() => {
     getProducts();
   }, [search]);

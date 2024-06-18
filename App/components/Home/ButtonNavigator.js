@@ -4,7 +4,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 
-export default function ButtonNavigator({ text, image, to, navigation}) {
+export default function ButtonNavigator({ text, image, to}) {
   return (
     <View
       style={{

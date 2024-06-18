@@ -13,7 +13,8 @@ export default function Slider() {
     GlobalApi.getServicios().then((resp) => {
       setServices(resp.data.data);
     });
-
+  
+  
   return (
     <View>
       <View style={{ display: "flex", flexDirection: "row" }}>

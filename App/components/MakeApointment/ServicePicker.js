@@ -8,14 +8,18 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 export default function ServicePicker({ service, onchange }) {
   const [services, setServices] = useState();
 
-  useEffect(() => {
-    getServicios();
-  }, []);
-
+  //Fncion que guarda los servicios en una variable
   const getServicios = () =>
     GlobalApi.getServicios().then((resp) => {
       setServices(resp.data.data);
     });
+
+  //Ejecutar getServicios una vez al abrir la view
+  useEffect(() => {
+    getServicios();
+  }, []);
+
+  
 
   return (
     <View style={{ paddingHorizontal: separator, marginBottom: 15 }}>
@@ -51,7 +55,16 @@ export default function ServicePicker({ service, onchange }) {
                 style={styles.imgStyle}
                 alt="Imagen promocional"
               />
-              <TouchableOpacity style={styles.overlay} onPress={()=>onchange(item.id,(item.attributes.Precio*(1.00-(item.attributes.Oferta/100))))}>
+              {/*Guardar el servicio seleccionado y su precio tras aplcar la oferta */}
+              <TouchableOpacity 
+              style={styles.overlay} 
+              onPress={
+                ()=>onchange(
+                  item.id,
+                  (item.attributes.Precio*(1.00-(item.attributes.Oferta/100)))
+                  )
+                }
+              >
                 <Text style={styles.overlayText}>{item.attributes.Nombre}-{(item.attributes.Precio*(1.00-(item.attributes.Oferta/100)))}€</Text>
               </TouchableOpacity>
             </View>
