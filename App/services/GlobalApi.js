@@ -1,7 +1,7 @@
 import axios from "axios";
 import moment from "moment";
 
-const BASE_URL ="http://192.168.1.70:1337";
+const BASE_URL ="http://192.168.48.167:1337";
 const today = moment().format("YYYY-MM-DD")
 
 const API_KEY =

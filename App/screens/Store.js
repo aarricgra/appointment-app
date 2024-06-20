@@ -77,6 +77,7 @@ export default function () {
         {productList.map((item, key) => {
           return (
             <View key={key}>
+              {item.attributes.Imagen.data ? (
               <Image
                 source={{
                   uri:
@@ -86,6 +87,9 @@ export default function () {
                 style={styles.imgStyle}
                 alt="Imagen promocional"
               />
+            ) : (
+              <Ionicons name={"images"} size={Dimensions.get("screen").width * 0.4} color={"white"} style={styles.imgStyle}/>
+            )}
               <View style={styles.overlay}>
                 <Text style={styles.overlayText}>
                   {item.attributes.Nombre}-

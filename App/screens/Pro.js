@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
+import GlobalApi from '../services/GlobalApi'
 import React from 'react'
 
 export default function Pro({navigation}) {
@@ -10,7 +11,8 @@ export default function Pro({navigation}) {
         const info = await AsyncStorage.getItem('user');
         //Si: ir a Home
         if (info) {
-            navigation.navigate("MainStack");
+            const resp = await GlobalApi.checkLoginCredentials(JSON.parse(info).attributes.Correo,JSON.parse(info).attributes.Password)
+            await AsyncStorage.setItem("user",JSON.stringify(resp.data.data[0])).then(navigation.navigate("MainStack"))
         }
         //No: ir a LoginHub 
         else {

@@ -30,6 +30,7 @@ export default function ServicePicker({ service, onchange }) {
         renderItem={({ item, key }) =>
           item.id == service ? (
             <View style={{borderWidth:1,borderColor:"#02e071",borderRadius:20,margin:10}}>
+              {item.attributes.Imagen.data ? (
               <Image
                 source={{
                   uri:
@@ -39,6 +40,9 @@ export default function ServicePicker({ service, onchange }) {
                 style={styles.imgStyle}
                 alt="Imagen promocional"
               />
+            ) : (
+              <Ionicons name={"images"} size={screenWidth * 0.3} color={"white"} style={styles.imgStyle}/>
+            )}
               <View style={styles.overlaySelected}>
               <Ionicons name="checkmark" size={70} color={"#02e071"}/>
                 <Text style={styles.overlayText}>{item.attributes.Nombre}</Text>
@@ -46,15 +50,19 @@ export default function ServicePicker({ service, onchange }) {
             </View>
           ) : (
             <View style={{margin:10}}>
+              {item.attributes.Imagen.data ? (
               <Image
                 source={{
                   uri:
-                  GlobalApi.getBaseUrl() +
+                    GlobalApi.getBaseUrl() +
                     item.attributes.Imagen.data[0].attributes.url,
                 }}
                 style={styles.imgStyle}
                 alt="Imagen promocional"
               />
+            ) : (
+              <Ionicons name={"images"} size={screenWidth * 0.3} color={"white"} style={styles.imgStyle}/>
+            )}
               {/*Guardar el servicio seleccionado y su precio tras aplcar la oferta */}
               <TouchableOpacity 
               style={styles.overlay} 

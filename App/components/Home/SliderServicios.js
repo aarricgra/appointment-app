@@ -1,6 +1,8 @@
 import { View, Text, FlatList, Image, Dimensions, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import GlobalApi from "../../services/GlobalApi";
+import Ionicons from '@expo/vector-icons/Ionicons';
+
 
 export default function Slider() {
   const [services, setServices] = useState();
@@ -27,13 +29,19 @@ export default function Slider() {
         horizontal
         renderItem={({ item }) => (
           <View>
-            <Image
-              source={{
-                uri: GlobalApi.getBaseUrl() + item.attributes.Imagen.data[0].attributes.url,
-              }}
-              style={styles.imgStyle}
-              alt="Imagen promocional"
-            />
+           {item.attributes.Imagen.data ? (
+              <Image
+                source={{
+                  uri:
+                    GlobalApi.getBaseUrl() +
+                    item.attributes.Imagen.data[0].attributes.url,
+                }}
+                style={styles.imgStyle}
+                alt="Imagen promocional"
+              />
+            ) : (
+              <Ionicons name={"images"} size={180/1.5} color={"white"} style={styles.imgStyle}/>
+            )}
             <View style={styles.overlay}>
               <Text style={styles.overlayText}>{item.attributes.Nombre}-
                   {item.attributes.Precio *

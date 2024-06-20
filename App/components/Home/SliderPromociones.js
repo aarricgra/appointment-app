@@ -10,6 +10,8 @@ import {
 import React, { useEffect, useState } from "react";
 import GlobalApi from "../../services/GlobalApi";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import Ionicons from '@expo/vector-icons/Ionicons';
+
 
 export default function Slider({ toSotre, show }) {
   const [products, setProducts] = useState();
@@ -23,7 +25,6 @@ export default function Slider({ toSotre, show }) {
   useEffect(() => {
     getPromociones();
   }, []);
-  
 
   return (
     <View>
@@ -51,7 +52,7 @@ export default function Slider({ toSotre, show }) {
           ""
         )}
       </View>
-      
+
       <FlatList
         data={products}
         horizontal
@@ -59,14 +60,20 @@ export default function Slider({ toSotre, show }) {
           //Por cada item en productos
           <View>
             {/* Pone su Imagen */}
-            <Image
-              source={{uri:
-                  GlobalApi.getBaseUrl() +
-                  item.attributes.Imagen.data[0].attributes.url,
-              }}
-              style={styles.imgStyle}
-              alt="Imagen promocional"
-            />
+            {item.attributes.Imagen.data ? (
+              <Image
+                source={{
+                  uri:
+                    GlobalApi.getBaseUrl() +
+                    item.attributes.Imagen.data[0].attributes.url,
+                }}
+                style={styles.imgStyle}
+                alt="Imagen promocional"
+              />
+            ) : (
+              <Ionicons name={"images"} size={180} color={"white"} style={styles.imgStyle}/>
+            )}
+
             {/* Pone su Oferta en un overlay */}
             <View style={styles.overlay}>
               <Text style={styles.overlayText}>
