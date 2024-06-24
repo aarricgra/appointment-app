@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
-  StyleSheet,
   TouchableOpacity,
 } from "react-native";
 import GlobalApi from "../../services/GlobalApi";
@@ -15,6 +14,18 @@ export default function EmailRegister({ navigation }) {
   function toLogin() {
     navigation.navigate("EmailLogin");
   }
+
+  const [rankId,setRankId] = useState();
+
+//Coger todas las promociones
+const getDefaultRank = () =>
+  GlobalApi.getDefaultRank().then((resp) => {
+    setRankId(resp.data.data[0].id);
+  });
+
+useEffect(() => {
+  getDefaultRank();
+}, []);
 
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
@@ -42,9 +53,12 @@ export default function EmailRegister({ navigation }) {
                 Nombre: fullName,
                 Correo: email,
                 Password: password,
-                Rango:1
+                idRango: rankId,
+                Tickets: 1,
+                Cartera: 0
               },
             };
+            console.log(json);
             await GlobalApi.postNewUser(json).then((res) => {
               GlobalApi.checkLoginCredentials(email, password).then(
                 async (resp) => {
@@ -109,7 +123,7 @@ export default function EmailRegister({ navigation }) {
         icon="lock-closed"
         placeholder="Contraseña"
         title="Confitmar constraseña"
-        value={password}
+        value={password2}
         onchange={(text) => {
           setPassword2(text);
           if (text == password) {

@@ -1,7 +1,7 @@
 import axios from "axios";
 import moment from "moment";
 
-const BASE_URL ="http://192.168.48.167:1337";
+const BASE_URL ="http://192.168.1.70:1337";
 const today = moment().format("YYYY-MM-DD")
 
 const API_KEY =
@@ -53,6 +53,11 @@ const getServiceById = (id) => AXIOS_INSTANCE.get("/api/servicios?populate=*&fil
 const deleteAppointment=(id)=> AXIOS_INSTANCE.delete("/api/reservas/"+id)
 const postNewAppointment = (data)=> AXIOS_INSTANCE.post("/api/reservas",data)
 
+const getDefaultRank = () => 
+  AXIOS_INSTANCE.get(
+    "/api/rangos?filters[Nombre][$eq]=Bronce"
+  );
+
 
 
 export default {
@@ -71,5 +76,6 @@ export default {
   getServiceById,
   getBaseUrl,
   deleteAppointment,
-  putNewUser
+  putNewUser,
+  getDefaultRank
 };

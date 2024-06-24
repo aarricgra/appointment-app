@@ -20,7 +20,7 @@ export default function () {
       style={{
         backgroundColor: "#171717",
         height: Dimensions.get("screen").height,
-        paddingHorizontal: Dimensions.get("screen").width * 0.05
+        paddingHorizontal: Dimensions.get("screen").width * 0.05,
       }}
     >
       <Text
@@ -28,7 +28,7 @@ export default function () {
           color: "white",
           fontSize: 16,
           fontWeight: "bold",
-          paddingLeft:10
+          paddingLeft: 10,
         }}
       >
         Todos los servicios
@@ -43,19 +43,20 @@ export default function () {
         {serviceList.map((item, key) => {
           return (
             <View key={key}>
+              {/*Si tiene imagen la pone y si no pone un icono */}
               {item.attributes.Imagen.data ? (
-              <Image
-                source={{
-                  uri:
-                    GlobalApi.getBaseUrl() +
-                    item.attributes.Imagen.data[0].attributes.url,
-                }}
-                style={styles.imgStyle}
-                alt="Imagen promocional"
-              />
-            ) : (
-              <Ionicons name={"images"} size={Dimensions.get("screen").width * 0.4} color={"white"} style={styles.imgStyle}/>
-            )}
+                <Image
+                  source={{
+                    uri:
+                      GlobalApi.getBaseUrl() +
+                      item.attributes.Imagen.data[0].attributes.url,
+                  }}
+                  style={styles.imgStyle}
+                  alt="Imagen promocional"
+                />
+              ) : (
+                <Ionicons name={"images"} size={Dimensions.get("screen").width * 0.4} color={"white"} style={styles.imgStyle}/>
+              )}
               <View style={styles.overlay}>
                 <Text style={styles.overlayText}>
                   {item.attributes.Nombre}-
