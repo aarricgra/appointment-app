@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get("screen").width * 0.4,
     resizeMode: "stretch",
     borderRadius: 20,
-    margin: 10,
+    margin: Dimensions.get("screen").width * 0.02,
   },
   overlay: {
     position: "absolute",
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     left: 0,
     backgroundColor: "rgba(0,0,0,0.5)",
     padding: 10,
-    margin: 10,
+    margin: Dimensions.get("screen").width * 0.02,
     borderBottomEndRadius: 20,
     borderBottomStartRadius: 20,
   },
